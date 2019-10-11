@@ -1,5 +1,7 @@
-import { Controller, Get, Post, Patch, Delete, Param, Body, Response, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Param, Body, Response, HttpStatus,UsePipes } from '@nestjs/common';
 import { DocumentService } from './document.service';
+import { DocumentPipe } from './pipe/document.pipe';
+import { AddDocumentDto } from './dto/add-document.dto';
 
 @Controller('document')
 export class DocumentController {
@@ -22,7 +24,8 @@ export class DocumentController {
         })
     }
     @Post()
-    addDocument(@Response() res, @Body() document) {
+    @UsePipes(DocumentPipe)
+    addDocument(@Response() res, @Body() document: AddDocumentDto) {
         this.documentService.getDocumentData().subscribe(data => {
             // 做些什麼
             res.status(HttpStatus.CREATED).json(document);

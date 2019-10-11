@@ -1,9 +1,9 @@
 import { IsString, IsInt } from 'class-validator';
 
-export class CreateCatDto {
+export class AddDocumentDto {
     @IsString()
     readonly name: string;
 
-    @IsInt()
+    @IsString()
     readonly author: string;
 }
