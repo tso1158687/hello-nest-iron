@@ -2,6 +2,7 @@ import { Controller, Get, Post, Patch, Delete, Param, Body, Response, HttpStatus
 import { DocumentService } from './document.service';
 import { DocumentPipe } from './pipe/document.pipe';
 import { AddDocumentDto } from './dto/add-document.dto';
+import { ParseIntPipe } from './pipe/parse-int.pipe';
 
 @Controller('document')
 export class DocumentController {
@@ -17,9 +18,9 @@ export class DocumentController {
 
 
     @Get('/:id')
-    getDocument(@Param() param, @Response() res) {
+    getDocument(@Param('id', new ParseIntPipe()) id, @Response() res) {
         this.documentService.getDocumentData().subscribe(data => {
-            let resData = data.filter(data => data.id === Number(param.id))
+            let resData = data.filter(data => data.id === id)
             res.status(HttpStatus.OK).json(resData);
         })
     }
