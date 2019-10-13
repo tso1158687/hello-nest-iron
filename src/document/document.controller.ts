@@ -1,9 +1,8 @@
-import { Controller, Get, Post, Patch, Delete, Param, Body, Response, HttpStatus,UsePipes } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Param, Body, Response, HttpStatus, UsePipes,HttpException } from '@nestjs/common';
 import { DocumentService } from './document.service';
 import { DocumentPipe } from './pipe/document.pipe';
 import { AddDocumentDto } from './dto/add-document.dto';
 import { ParseIntPipe } from './pipe/parse-int.pipe';
-
 @Controller('document')
 export class DocumentController {
     constructor(
@@ -14,6 +13,10 @@ export class DocumentController {
         this.documentService.getDocumentData().subscribe(data => {
             res.status(HttpStatus.OK).json(data);
         })
+        // throw new HttpException({
+        //     status: '朕知道了',
+        //     error: '錯誤訊息',
+        //   },404);
     }
 
 
